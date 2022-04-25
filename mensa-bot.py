@@ -105,5 +105,5 @@ meal_message += "\n" + roll_emoji(meat_emojis) + " *FLEISCH*:"
 meal_message += add_meal_strings(asi_meals)
 
 meal_message += "\nLasst's euch schmecken! \U0001F49A\nEuer Leuphana Mensabot \U0001f916"
-print(meal_message)
-#telegram_bot_sendtext(meal_message)
+# print(meal_message)
+telegram_bot_sendtext(meal_message)

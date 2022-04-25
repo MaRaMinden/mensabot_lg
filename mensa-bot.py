@@ -50,7 +50,7 @@ def telegram_bot_sendtext(bot_message):
 
 	# send_animation = 'https://api.telegram.org/bot' + bot_token + '/sendAnimation?chat_id=' + bot_chatID + '&animation=https://media.giphy.com/media/l4KibK3JwaVo0CjDO/giphy.gif'
 	# response2 = requests.get(send_animation)
-
+	print(response.json())
 	return response.json()
 
 # Get that sweet meal data
@@ -75,14 +75,21 @@ def add_meal_strings(meal_list):
 	if len(meal_list) == 0:
 		string += "\nHm, hier gibt's heute nüscht.."
 	else:
+		previousPrice = 0.0
 		for current_meal in meal_list:
-			current_meal_name = current_meal['name']
 			current_prices = current_meal['price']
 			current_student_price = (current_prices['student'] + "€").replace(".", ",")
 			"""
 			current_employee_price = (current_prices['employee'] + "€").replace(".", ",")
 			current_guest_price = (current_prices['guest'] + "€").replace(".", ",")
 			"""
+			current_meal_name = current_meal['name']
+			current_price_as_float = float(current_prices['student'])
+			if(current_price_as_float < 2 ): # Check if it's just a sidedish
+				current_meal_name = "_" + current_meal_name + "_" # Make italic
+				if previousPrice > 2: # Add divider if category is not only side-dishes
+					string += "\n--------"
+			previousPrice = current_price_as_float
 			current_meal_prices_string = "(" + current_student_price + ")"
 
 			string = string + "\n" + current_meal_name + " " + current_meal_prices_string
@@ -99,4 +106,4 @@ meal_message += add_meal_strings(asi_meals)
 
 meal_message += "\nLasst's euch schmecken! \U0001F49A\nEuer Leuphana Mensabot \U0001f916"
 print(meal_message)
-# telegram_bot_sendtext(meal_message)
+#telegram_bot_sendtext(meal_message)

@@ -1,15 +1,20 @@
-# -*- coding: utf-8 -*-
 import random
 import requests
 from datetime import datetime
+
+# ü: "+u"\u00FC"+"
+# ä: "+u"\u00E4"+"
+# ö: "+u"\u00F6"+"
 
 greeting_text_snippets = [
 	"Ahoi ihr Landratten! Heute gibt's mal wieder leckerschmecker Essen f"+u"\u00FC"+"r euch, und zwar Folgendes:",
 	"Wetter is mal wieder nich so? Vorlesung auch langweilig? Immerhin - Essen gibt's:",
 	"Rumort's in der Magengegend aber dein Crush ist gar nicht in der N"+u"\u00E4"+"he? Dann hilft vielleicht eine dieser Leckereien:",
-	"Bänderer:innen haben Hunger, bitte um Sachspende:",
+	"B"+u"\u00E4"+"ndernde haben Hunger, bitte um Sachspende:",
 	"Dieses leckere Essen kannst du heute wahlweise mit Gabel oder mit Spoun essen:",
-	"Na, schon hungrig? Dann snack dir doch eines der folgenden Gerichte:"
+	"Na, schon hungrig? Dann snack dir doch eines der folgenden Gerichte:",
+	"Ihr findet die Witze hier bl"+u"\u00F6"+"d? Ist wohl Geschmackssache. So wie das hier:",
+	"G"+u"\u00F6"+"nnt euch die Mensung für heute:"
 ]
 
 vegan_emojis = [
@@ -44,7 +49,7 @@ def roll_emoji(emoji_list):
 	return emojicode
 
 def telegram_bot_sendtext(bot_message):
-	bot_token = '5390138179:AAEEFYigTsS2djDkOKRLfYbIzW6XNSOnNyk'
+	bot_token = ''
 	bot_chatID = '@lg_bester_mensabot'
 	send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&parse_mode=Markdown&text=' + bot_message
 	response = requests.get(send_text)

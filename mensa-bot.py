@@ -103,7 +103,7 @@ meal_message += add_meal_strings(vegan_meals)
 meal_message += "\n" + roll_emoji(vegetarian_emojis) + " *VEGETARISCH*:"
 meal_message += add_meal_strings(vegetarian_meals)
 
-meal_message += "\n" + roll_emoji(meat_emojis) + " *FLEISCH*:"
+meal_message += "\n" + roll_emoji(meat_emojis) + " *Totes Tier*:"
 meal_message += add_meal_strings(asi_meals)
 
 meal_message += "\nLasst's euch schmecken!" + u"\U0001F49A" + "\nEuer Leuphana Mensabot" + u"\U0001f916"

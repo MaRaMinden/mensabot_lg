@@ -67,7 +67,7 @@ def telegram_bot_sendtext(bot_message):
 
 # Get that sweet meal data
 mensa_id = "140" # 101 = Braunschweig; 140 = Lueneburg
-tomorrow_as_iso_string = (datetime.today() + timedelta(days=-1)).strftime('%Y-%m-%d')
+tomorrow_as_iso_string = (datetime.today()).strftime('%Y-%m-%d') # + timedelta(days=-1)
 meals = requests.get(
 	"https://sls.api.stw-on.de/v1/locations/" + mensa_id + "/menu/" + tomorrow_as_iso_string).json()['meals']
 
@@ -128,5 +128,5 @@ meal_message += "\n" + roll_emoji(meat_emojis) + " *Totes Tier*:"
 meal_message += add_meal_strings(asi_meals)
 
 meal_message += "\nLasst's euch schmecken!" + u"\U0001F49A" + "\nEuer Leuphana Mensabot" + u"\U0001f916"
-print(meal_message)
-# telegram_bot_sendtext(meal_message)
+# print(meal_message)
+telegram_bot_sendtext(meal_message)

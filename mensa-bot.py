@@ -1,19 +1,25 @@
 import random
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # ü: "+u"\u00FC"+"
 # ä: "+u"\u00E4"+"
 # ö: "+u"\u00F6"+"
 
 greeting_text_snippets = [
-	"Ahoi ihr Landratten! Heute gibt's mal wieder leckerschmecker Essen f"+u"\u00FC"+"r euch, und zwar Folgendes:",
+	"Ahoi ihr Landratten! Heute gibt's mal wieder leckerschmecker Essen f"+u"\u00FC"+"r euch, und zwar:",
 	"Wetter is mal wieder nich so? Vorlesung auch langweilig? Immerhin - Essen gibt's:",
+	"Das heutige Mittagessen ist allen gewidmet, die Dank Klausurenphase erst nach 4 Kaffee oder Mate etwas spüren. Ihr macht das super, haltet durch! "+u"\U0001F49A",
+	"Das heutige Mittagessen ist allen gewidmet, die Dank Klausurenphase erst nach 4 Kaffee oder Mate etwas spüren. Ihr macht das super, haltet durch! "+u"\U0001F49A",
 	"Rumort's in der Magengegend aber dein Crush ist gar nicht in der N"+u"\u00E4"+"he? Dann hilft vielleicht eine dieser Leckereien:",
 	"B"+u"\u00E4"+"ndernde haben Hunger, bitte um Sachspende:",
 	"Dieses leckere Essen kannst du heute wahlweise mit Gabel oder mit Spoun essen:",
-	"Na, schon hungrig? Dann snack dir doch eines der folgenden Gerichte:",
+	"Na, schon hungrig? Bisschen dauert's leider noch, aber ab 11:45 gibt's diesen Schmackofatz:",
 	"Ihr findet die Witze hier bl"+u"\u00F6"+"d? Ist wohl Geschmackssache. So wie das hier:",
+	"Wer wegen der RPO-"+u"\u00C4"+"nderungen im Strahl kotzen musste, kann hiermit wieder aufstocken:",
+	"Wer wegen der RPO-"+u"\u00C4"+"nderungen im Strahl kotzen musste, kann hiermit wieder aufstocken:",
+	"Die Klausurenphase ist hart, aber euer Hunger ist h"+u"\u00E4"+"rter? Kein Problem:",
+	"Die Klausurenphase ist hart, aber euer Hunger ist h"+u"\u00E4"+"rter? Kein Problem:",
 	"G"+u"\u00F6"+"nnt euch die Mensung für heute:"
 ]
 
@@ -61,14 +67,29 @@ def telegram_bot_sendtext(bot_message):
 
 # Get that sweet meal data
 mensa_id = "140" # 101 = Braunschweig; 140 = Lueneburg
-tomorrow_as_iso_string = (datetime.today()).strftime('%Y-%m-%d') # + timedelta(days=1)
+tomorrow_as_iso_string = (datetime.today() + timedelta(days=-1)).strftime('%Y-%m-%d')
 meals = requests.get(
 	"https://sls.api.stw-on.de/v1/locations/" + mensa_id + "/menu/" + tomorrow_as_iso_string).json()['meals']
 
 # Split by meal type
-vegan_meals = list(filter(lambda current_meal: current_meal['tags']['categories'][0]['name'] == "Vegan", meals))
-vegetarian_meals = list(filter(lambda current_meal: current_meal['tags']['categories'][0]['name'] == "Vegetarisch", meals))
-asi_meals = list(filter(lambda current_meal: current_meal['tags']['categories'][0]['name'] != "Vegetarisch" and
+# vegan_meals = []
+# for meal in meals:
+# 	print(meal['tags'])
+# 	category_length = len(meal['tags']['categories'])
+# 	print(category_length)
+# 	# print(meal['tags']['categories'][0])
+# 	# print(meal['tags']['categories'][0]['name'])
+# 	if(category_length > 0 and meal['tags']['categories'][0]['name'] == 'Vegan'):
+# 		vegan_meals.append(meal)
+
+
+vegan_meals = list(filter(lambda current_meal: len(current_meal['tags']['categories']) > 0 and
+                                                current_meal['tags']['categories'][0]['name'] == 'Vegan', meals))
+
+vegetarian_meals = list(filter(lambda current_meal: len(current_meal['tags']['categories']) > 0 and
+                                                    current_meal['tags']['categories'][0]['name'] == "Vegetarisch", meals))
+asi_meals = list(filter(lambda current_meal: len(current_meal['tags']['categories']) > 0 and
+                                             current_meal['tags']['categories'][0]['name'] != "Vegetarisch" and
 											 current_meal['tags']['categories'][0]['name'] != "Vegan", meals))
 meal_message = ""
 
@@ -107,5 +128,5 @@ meal_message += "\n" + roll_emoji(meat_emojis) + " *Totes Tier*:"
 meal_message += add_meal_strings(asi_meals)
 
 meal_message += "\nLasst's euch schmecken!" + u"\U0001F49A" + "\nEuer Leuphana Mensabot" + u"\U0001f916"
-# print(meal_message)
-telegram_bot_sendtext(meal_message)
+print(meal_message)
+# telegram_bot_sendtext(meal_message)

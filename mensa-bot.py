@@ -2,15 +2,11 @@ import random
 import requests
 from datetime import datetime, timedelta
 
-# ü: "+u"\u00FC"+"
-# ä: "+u"\u00E4"+"
-# ö: "+u"\u00F6"+"
-
 greeting_text_snippets = [
 	"Ahoi ihr Landratten! Heute gibt's mal wieder leckerschmecker Essen f" + u"\u00FC" + "r euch, und zwar:",
 	"Wetter is mal wieder nich so? Vorlesung auch langweilig? Immerhin - Essen gibt's:",
-	"Das heutige Mittagessen ist allen gewidmet, die Dank Klausurenphase erst nach 4 Kaffee oder Mate etwas spüren. Ihr macht das super, haltet durch! " + u"\U0001F49A",
-	"Das heutige Mittagessen ist allen gewidmet, die Dank Klausurenphase erst nach 4 Kaffee oder Mate etwas spüren. Ihr macht das super, haltet durch! " + u"\U0001F49A",
+	"Das heutige Mittagessen ist allen gewidmet, die Dank Klausurenphase erst nach 4 Kaffee oder Mate was spüren. Ihr macht das super, haltet durch! " + u"\U0001F49A",
+	"Das heutige Mittagessen ist allen gewidmet, die Dank Klausurenphase erst nach 4 Kaffee oder Mate was spüren. Ihr macht das super, haltet durch! " + u"\U0001F49A",
 	"Rumort's in der Magengegend aber dein Crush ist gar nicht in der N" + u"\u00E4" + "he? Dann hilft vielleicht eine dieser Leckereien:",
 	"B" + u"\u00E4" + "ndernde haben Hunger, bitte um Sachspende:",
 	"Dieses leckere Essen kannst du heute wahlweise mit Gabel oder mit Spoun essen:",
@@ -121,6 +117,6 @@ meal_message += add_meal_strings(vegetarian_meals)
 meal_message += "\n" + roll_emoji(meat_emojis) + " *Totes Tier*:"
 meal_message += add_meal_strings(asi_meals)
 
-meal_message += "\nLasst's euch schmecken!" + u"\U0001F49A" + "\nEuer Leuphana Mensabot" + u"\U0001f916"
+meal_message += "\nLasst's euch schmecken! " + u"\U0001F49A" + "\nEuer Mensabot " + u"\U0001f916"
 # print(meal_message)
 telegram_bot_sendtext(meal_message)

@@ -5,8 +5,8 @@ from datetime import datetime, timedelta
 greeting_text_snippets = [
 	"Ahoi ihr Landratten! Heute gibt's mal wieder leckerschmecker Essen f" + u"\u00FC" + "r euch, und zwar:",
 	"Wetter is mal wieder nich so? Vorlesung auch langweilig? Immerhin - Essen gibt's:",
-	"Das heutige Mittagessen ist allen gewidmet, die Dank Klausurenphase erst nach 4 Kaffee oder Mate was spüren. Ihr macht das super, haltet durch! " + u"\U0001F49A",
-	"Das heutige Mittagessen ist allen gewidmet, die Dank Klausurenphase erst nach 4 Kaffee oder Mate was spüren. Ihr macht das super, haltet durch! " + u"\U0001F49A",
+	"Das heutige Mittagessen ist allen gewidmet, die Dank Klausurenphase erst nach 4 Kaffee oder Mate was sp" + u"\u00FC" + "ren. Ihr macht das super, haltet durch! " + u"\U0001F49A",
+	"Das heutige Mittagessen ist allen gewidmet, die Dank Klausurenphase erst nach 4 Kaffee oder Mate was sp" + u"\u00FC" + "ren. Ihr macht das super, haltet durch! " + u"\U0001F49A",
 	"Rumort's in der Magengegend aber dein Crush ist gar nicht in der N" + u"\u00E4" + "he? Dann hilft vielleicht eine dieser Leckereien:",
 	"B" + u"\u00E4" + "ndernde haben Hunger, bitte um Sachspende:",
 	"Dieses leckere Essen kannst du heute wahlweise mit Gabel oder mit Spoun essen:",
@@ -14,9 +14,9 @@ greeting_text_snippets = [
 	"Ihr findet die Witze hier bl" + u"\u00F6" + "d? Ist wohl Geschmackssache. So wie das hier:",
 	"Wer wegen der RPO-" + u"\u00C4" + "nderungen im Strahl kotzen musste, kann hiermit wieder aufstocken:",
 	"Wer wegen der RPO-" + u"\u00C4" + "nderungen im Strahl kotzen musste, kann hiermit wieder aufstocken:",
-	"Die Klausurenphase ist hart, aber euer Hunger ist h" + u"\u00E4" + "rter? Kein Problem:",
-	"Die Klausurenphase ist hart, aber euer Hunger ist h" + u"\u00E4" + "rter? Kein Problem:",
-	"G" + u"\u00F6" + "nnt euch die Mensung für heute:"
+	"Die Pr" + u"\u00FC" + "fungsphase ist hart, aber euer Hunger ist h" + u"\u00E4" + "rter? Kein Problem:",
+	"Die Pr" + u"\u00FC" + "fungsphase ist hart, aber euer Hunger ist h" + u"\u00E4" + "rter? Kein Problem:",
+	"G" + u"\u00F6" + "nnt euch die Mensung f" + u"\u00FC" + "r heute:"
 ]
 
 vegan_emojis = [

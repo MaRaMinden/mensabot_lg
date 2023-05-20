@@ -5,18 +5,19 @@ from datetime import datetime, timedelta
 greeting_text_snippets = [
 	"Ahoi ihr Landratten! Heute gibt's mal wieder leckerschmecker Essen f" + u"\u00FC" + "r euch, und zwar:",
 	"Wetter is mal wieder nich so? Vorlesung auch langweilig? Immerhin - Essen gibt's:",
-	"Das heutige Mittagessen ist allen gewidmet, die Dank Klausurenphase erst nach 4 Kaffee oder Mate was sp" + u"\u00FC" + "ren. Ihr macht das super, haltet durch! " + u"\U0001F49A",
-	"Das heutige Mittagessen ist allen gewidmet, die Dank Klausurenphase erst nach 4 Kaffee oder Mate was sp" + u"\u00FC" + "ren. Ihr macht das super, haltet durch! " + u"\U0001F49A",
 	"Rumort's in der Magengegend aber dein Crush ist gar nicht in der N" + u"\u00E4" + "he? Dann hilft vielleicht eine dieser Leckereien:",
-	"B" + u"\u00E4" + "ndernde haben Hunger, bitte um Sachspende:",
+	"B" + u"\u00E4" + "ndernde haben Hunger, wir bitten um Sachspenden:",
 	"Dieses leckere Essen kannst du heute wahlweise mit Gabel oder mit Spoun essen:",
 	"Na, schon hungrig? Bisschen dauert's leider noch, aber ab 11:45 gibt's diesen Schmackofatz:",
 	"Ihr findet die Witze hier bl" + u"\u00F6" + "d? Ist wohl Geschmackssache. So wie das hier:",
 	"Wer wegen der RPO-" + u"\u00C4" + "nderungen im Strahl kotzen musste, kann hiermit wieder aufstocken:",
-	"Wer wegen der RPO-" + u"\u00C4" + "nderungen im Strahl kotzen musste, kann hiermit wieder aufstocken:",
+	"G" + u"\u00F6" + "nnt euch die Mensung f" + u"\u00FC" + "r heute:",
+	"Hey du :) Es gibt nachher richtig leckeres Essen. Nur f" + u"\u00FC" + "r dich. Schau:",
+	"Na, noch b" + u"\u00FC" + "schn zerknittert? Zigaretten, Ibu oder Leberwurst gibt's heute leider nicht, aber vielleicht hilft dir das hier:",
+]
+occasional_text_snippets = [
+	"Das heutige Mittagessen ist allen gewidmet, die Dank Klausurenphase erst nach 4 Kaffee oder Mate was sp" + u"\u00FC" + "ren. Ihr macht das super, haltet durch! " + u"\U0001F49A",
 	"Die Pr" + u"\u00FC" + "fungsphase ist hart, aber euer Hunger ist h" + u"\u00E4" + "rter? Kein Problem:",
-	"Die Pr" + u"\u00FC" + "fungsphase ist hart, aber euer Hunger ist h" + u"\u00E4" + "rter? Kein Problem:",
-	"G" + u"\u00F6" + "nnt euch die Mensung f" + u"\u00FC" + "r heute:"
 ]
 
 vegan_emojis = [
@@ -42,7 +43,6 @@ meat_emojis = [
 	u"\U0001F321",  # Thermometer
 	u"\U0001F9F8"  # Teddy
 ]
-
 
 def roll_emoji(emoji_list):
 	emojicode = ""
@@ -72,18 +72,39 @@ meals = requests.get(
 
 # Split by meal type
 vegan_meals = list(filter(lambda current_meal: len(current_meal['tags']['categories']) > 0 and
-                                               current_meal['tags']['categories'][0]['name'] == 'Vegan', meals))
+                                               current_meal['tags']['categories'][0]['name'] == 'Vegan',
+                          meals))
 vegetarian_meals = list(filter(lambda current_meal: len(current_meal['tags']['categories']) > 0 and
-                                                    current_meal['tags']['categories'][0]['name'] == "Vegetarisch",
+                                                    (current_meal['tags']['categories'][0]['name'] == "Vegetarisch" or
+                                                     (current_meal['tags']['categories'][0]['id'] == "NM" and
+                                                      not current_meal['tags']['categories'][0]['name'] == "Vegan")),
                                meals))
 asi_meals = list(filter(lambda current_meal: len(current_meal['tags']['categories']) > 0 and
                                              current_meal['tags']['categories'][0]['name'] != "Vegetarisch" and
-                                             current_meal['tags']['categories'][0]['name'] != "Vegan", meals))
+                                             current_meal['tags']['categories'][0]['name'] != "Vegan" and
+                                             not current_meal['tags']['categories'][0]['id'] == "NM",
+                        meals))
+
 meal_message = ""
 
-# Add a random greeting
-random_greeting_text = greeting_text_snippets[random.randint(0, len(greeting_text_snippets) - 1)]
-meal_message += random_greeting_text + "\n"
+def meal_alarm_finder(meal_name):
+	found = False
+	for meal in meals:
+		if(meal_name in meal['name']):
+			found = True
+	return found
+
+greeting_text = ""
+if (meal_alarm_finder("Soja-Gyros")):
+	greeting_text += u"\U0001F6A8" + u"\U0001F6A8" + u"\U0001F6A8" + " ALARM! ALAAAARM! Es gibt Soja-Gyros!!! " + u"\U0001F6A8" + u"\U0001F6A8" + u"\U0001F6A8\n"
+	meal_message += greeting_text
+elif (meal_alarm_finder("Kartoffelspalten")):
+		greeting_text += u"\U0001F6A8" + u"\U0001F6A8" + u"\U0001F6A8" + " ALARM! ALAAAARM! Es gibt Kartoffelspalten!!! " + u"\U0001F6A8" + u"\U0001F6A8" + u"\U0001F6A8\n"
+		meal_message += greeting_text
+else:
+	# Add a random greeting
+	greeting_text = greeting_text_snippets[random.randint(0, len(greeting_text_snippets) - 1)]
+	meal_message += greeting_text + "\n"
 
 
 def add_meal_strings(meal_list):

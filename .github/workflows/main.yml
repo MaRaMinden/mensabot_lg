@@ -17,8 +17,6 @@ jobs:
     - name: connect
       run: |
         ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }}
-    - name: cd
-      run: |
         cd bin/mensabot_lg
         git checkout master
         git pull

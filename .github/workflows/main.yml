@@ -17,8 +17,10 @@ jobs:
     - name: connect
       run: |
         ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }}
-    - name: pull
+    - name: cd
       run: |
-        cd bin/mensabot_lg && git checkout master && git pull && exit
+        cd bin/mensabot_lg
+        git checkout master
+        git pull
     - name: cleanup
       run: rm -rf ~/.ssh

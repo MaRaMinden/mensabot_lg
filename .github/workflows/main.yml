@@ -8,8 +8,6 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Adding Known Hosts
-        run: ssh-keyscan -p ${{ secrets.PORT}} -H ${{ secrets.HOST }}  >> ~/.ssh/known_hosts
       - name: pull repository
         uses: appleboy/ssh-action@master
         with:

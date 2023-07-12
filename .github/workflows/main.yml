@@ -15,5 +15,5 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        script: cd bin/mensabot_lg && git checkout master && git pull && exit
+        script: whoami
     

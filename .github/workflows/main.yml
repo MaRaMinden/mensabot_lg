@@ -9,13 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: install ssh keys
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        HOST: ${{ secrets.HOST }}
       run: |
         install -m 600 -D /dev/null ~/.ssh/id_rsa
-        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-        ssh-keyscan -H $HOST > ~/.ssh/known_hosts
+        echo " ${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.HOST }} > ~/.ssh/known_hosts
     - name: connect
       run: |
         ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }}
